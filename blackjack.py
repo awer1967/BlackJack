@@ -42,3 +42,39 @@ class Deck:
         """Deal with the deck"""
         single_card = self.deck.pop()
         return single_card
+
+
+class Hand:
+    """Defines a player hand"""
+    def __init__(self):
+        self.cards = []  # start with an empty list as we did in the Deck class
+        self.value = 0  # start with zero value
+        self.aces = 0  # add an attribute to keep track of aces
+
+    def add_card(self, card):
+        """Add a card for the hand"""
+        self.cards.append(card)
+        self.value += values[card.rank]
+        if card.rank == 'Ace':
+            self.aces += 1  # add to self.aces
+
+    def adjust_for_ace(self):
+        """Aces adjustment"""
+        while self.value > 21 and self.aces:
+            self.value -= 10
+            self.aces -= 1
+
+
+class Chips:
+    """Chips assigned to the hand"""
+    def __init__(self):
+        self.total = 100  # This can be set to a default value or supplied by a user input
+        self.bet = 0
+
+    def win_bet(self):
+        """Win the chips"""
+        self.total += self.bet
+
+    def lose_bet(self):
+        """Loose the chips"""
+        self.total -= self.bet
